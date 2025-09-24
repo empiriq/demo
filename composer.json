@@ -1,0 +1,21 @@
+{
+    "name": "empiriq/demo",
+    "license": "MIT",
+    "type": "project",
+    "description": "Empiriq Demo Application",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "empiriq/empiriq": "1.0.x-dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/runtime": true
+        }
+    }
+}
