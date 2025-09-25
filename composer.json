@@ -6,6 +6,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
+        "php": ">=8.4",
         "empiriq/empiriq": "1.0.x-dev"
     },
     "require-dev": {
