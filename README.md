@@ -33,7 +33,7 @@ Execute this command to run tests:
 
 ```bash
 cd my_project/
-./bin/phpunit
+composer run phpunit
 ```
 
 [1]: https://getcomposer.org/
