@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a2084fbecc0e0cd93ad1c8990a40b6f",
+    "content-hash": "2e7c56aaf3cd86e4d60e09efd0b7e9b1",
     "packages": [
         {
             "name": "bramus/ansi-php",
@@ -292,12 +292,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/empiriq/empiriq.git",
-                "reference": "d12bae61fd56ef52d305ccd6bb4375ad25388ba4"
+                "reference": "5420afc0de2346ba314f2b86dd00aa340165b858"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/empiriq/empiriq/zipball/d12bae61fd56ef52d305ccd6bb4375ad25388ba4",
-                "reference": "d12bae61fd56ef52d305ccd6bb4375ad25388ba4",
+                "url": "https://api.github.com/repos/empiriq/empiriq/zipball/5420afc0de2346ba314f2b86dd00aa340165b858",
+                "reference": "5420afc0de2346ba314f2b86dd00aa340165b858",
                 "shasum": ""
             },
             "require": {
@@ -397,7 +397,7 @@
                 "issues": "https://github.com/empiriq/empiriq/issues",
                 "source": "https://github.com/empiriq/empiriq/tree/1.0"
             },
-            "time": "2025-09-24T03:46:33+00:00"
+            "time": "2025-09-26T15:07:25+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -9545,7 +9545,9 @@
     },
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": {},
+    "platform": {
+        "php": ">=8.4"
+    },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

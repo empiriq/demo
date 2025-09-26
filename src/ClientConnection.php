@@ -1,25 +1,28 @@
 <?php
 
-namespace App\Common;
+namespace App;
 
 use React\Socket\ConnectionInterface;
 use SplObjectStorage;
+use Symfony\Component\Console\Input\StringInput;
 
-readonly class Connection
+readonly class ClientConnection
 {
     /**
      * @param ConnectionInterface $connection
-     * @param SplObjectStorage $clients
+     * @param SplObjectStorage $clientConnections
+     * @param TerminalApplication $terminalApplication
      */
     public function __construct(
         private ConnectionInterface $connection,
-        private SplObjectStorage $clients
+        private SplObjectStorage $clientConnections,
+        private TerminalApplication $terminalApplication,
     ) {
-        $this->connection->write("Welcome to Empiriq Terminal!\n");
         $this->connection->on('data', [$this, '__data']);
         $this->connection->on('end', [$this, '__end']);
         $this->connection->on('close', [$this, '__close']);
         $this->connection->on('error', [$this, '__error']);
+        $this->connection->write("Welcome to Empiriq Terminal!\n# ");
     }
 
     /**
@@ -29,7 +32,19 @@ readonly class Connection
      */
     public function __data($data): void
     {
-        var_dump('client data');
+        $commandLine = trim($data);
+        if ($commandLine === '') {
+            $this->connection->write('# ');
+            return;
+        }
+        $input = new StringInput($commandLine);
+        $stream = new StreamOutput($this->connection);
+        try {
+            $exitCode = $this->terminalApplication->run($input, $stream);
+        } catch (\Throwable $e) {
+            $this->connection->write("Error: " . $e->getMessage() . "\n");
+        }
+        $this->connection->write('# ');
     }
 
     /**
@@ -38,7 +53,7 @@ readonly class Connection
      */
     public function __end(): void
     {
-        var_dump('__end');
+        $this->connection->write('Bay');
     }
 
     /**
@@ -49,7 +64,7 @@ readonly class Connection
     {
         $this->connection->removeListener('data', [$this, '__data']);
         $this->connection->removeListener('close', [$this, '__close']);
-        $this->clients->detach($this);
+        $this->clientConnections->detach($this);
     }
 
     /**
@@ -59,6 +74,6 @@ readonly class Connection
      */
     public function __error($data): void
     {
-        var_dump($data);
+        $this->connection->write('error');
     }
 }

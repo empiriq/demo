@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Commands;
+namespace App\Exclude;
 
 use Empiriq\BinanceManager\Derivatives\FuturesUsdM\Repositories\BalanceRepository;
 use Symfony\Component\Console\Command\Command;

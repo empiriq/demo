@@ -15,11 +15,20 @@ services:
         public: true
     Symfony\Component\EventDispatcher\EventDispatcherInterface: '@event_dispatcher'
     Psr\EventDispatcher\EventDispatcherInterface: '@event_dispatcher'
-
+    Psr\Container\ContainerInterface: '@service_container'
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
         exclude:
-            - '../src/Common'
-            - '../src/Commands'
+            - '../src/Exclude/'
+
+    _instanceof:
+        Empiriq\Contracts\RunnableInterface:
+            tags: ['runnable']
+
+    App\RunCommand:
+        arguments:
+            $logger: '@logger'
+            $runners: !tagged_iterator 'runnable'
+        tags: ['console.command']

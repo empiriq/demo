@@ -1,6 +1,6 @@
 <?php
 
-namespace App\EventListener;
+namespace App\Exclude;
 
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleEvent;
