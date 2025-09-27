@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Command\HelpCommand;
-use App\Command\ListCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -62,15 +60,6 @@ final class TerminalApplication extends Application
             fn($name) => !in_array($name, $commandsToRemove, true),
             ARRAY_FILTER_USE_KEY
         );
-    }
-
-    #[\Override]
-    protected function getDefaultCommands(): array
-    {
-        return [
-            new HelpCommand(),
-            new ListCommand(),
-        ];
     }
 
     #[\Override]

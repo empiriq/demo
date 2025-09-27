@@ -292,12 +292,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/empiriq/empiriq.git",
-                "reference": "5420afc0de2346ba314f2b86dd00aa340165b858"
+                "reference": "698ea8bf0245f486f14b52d2f12a9ef42b6af674"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/empiriq/empiriq/zipball/5420afc0de2346ba314f2b86dd00aa340165b858",
-                "reference": "5420afc0de2346ba314f2b86dd00aa340165b858",
+                "url": "https://api.github.com/repos/empiriq/empiriq/zipball/698ea8bf0245f486f14b52d2f12a9ef42b6af674",
+                "reference": "698ea8bf0245f486f14b52d2f12a9ef42b6af674",
                 "shasum": ""
             },
             "require": {
@@ -397,7 +397,7 @@
                 "issues": "https://github.com/empiriq/empiriq/issues",
                 "source": "https://github.com/empiriq/empiriq/tree/1.0"
             },
-            "time": "2025-09-26T15:07:25+00:00"
+            "time": "2025-09-27T11:34:50+00:00"
         },
         {
             "name": "evenement/evenement",

@@ -10,6 +10,9 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    _instanceof:
+        Empiriq\Contracts\RunnableInterface:
+            tags: [ 'empiriq.runnable' ]
     event_dispatcher:
         class: Symfony\Component\EventDispatcher\EventDispatcher
         public: true
@@ -23,12 +26,7 @@ services:
         exclude:
             - '../src/Exclude/'
 
-    _instanceof:
-        Empiriq\Contracts\RunnableInterface:
-            tags: ['runnable']
-
     App\RunCommand:
         arguments:
             $logger: '@logger'
-            $runners: !tagged_iterator 'runnable'
-        tags: ['console.command']
+            $runners: !tagged_iterator 'empiriq.runnable'

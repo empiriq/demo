@@ -7,10 +7,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand(
-    name: 'foo',
-    description: 'Foo Description',
-)]
+#[AsCommand('foo', 'Foo Description')]
 final class FooCommand extends Command
 {
     #[\Override]

@@ -12,10 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use function React\Async\await;
 use function React\Promise\all;
 
-#[AsCommand(
-    name: 'run',
-    description: 'Creates users and stores them in the database',
-)]
+#[AsCommand('run', 'Run all runnable services')]
 final class RunCommand extends Command
 {
     /**
@@ -26,20 +23,7 @@ final class RunCommand extends Command
         private readonly LoggerInterface $logger,
         private readonly iterable $runners,
     ) {
-        parent::__construct('run');
-    }
-
-    #[\Override]
-    protected function configure(): void
-    {
-        $this
-            ->setHelp(
-                <<<'HELP'
-                The <info>%command.name%</info> command lists all the users registered in the application:
-
-                  <info>%command.full_name%</info>
-                HELP
-            );
+        parent::__construct();
     }
 
     #[\Override]
@@ -47,17 +31,16 @@ final class RunCommand extends Command
     {
         $runners = [];
         foreach ($this->runners as $runner) {
-            $this->logger->info(sprintf('Running: %s', get_class($runner)));
+            $this->logger->info(sprintf('Running: %s', $runner::class));
             $runners[] = $runner->run();
         }
         try {
             await(all($runners));
-
-            return Command::SUCCESS;
         } catch (\Throwable $e) {
             $this->logger->error(sprintf('Runner execution failed: %s (%s)', $e->getMessage(), $e::class));
-
             return Command::FAILURE;
         }
+
+        return Command::SUCCESS;
     }
 }
