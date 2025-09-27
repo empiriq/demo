@@ -43,4 +43,18 @@ final class RunCommand extends Command
 
         return Command::SUCCESS;
     }
+
+    public function shutdown(): void
+    {
+        $runners = [];
+        foreach ($this->runners as $runner) {
+            $this->logger->info(sprintf('Running: %s', $runner::class));
+            $runners[] = $runner->shutdown();
+        }
+        try {
+            await(all($runners));
+        } catch (\Throwable $e) {
+            $this->logger->error(sprintf('shutdown'));
+        }
+    }
 }
