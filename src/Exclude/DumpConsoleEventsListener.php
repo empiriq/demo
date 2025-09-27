@@ -8,6 +8,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class DumpConsoleEventsListener implements EventSubscriberInterface
 {
+    #[\Override]
     public static function getSubscribedEvents(): array
     {
         return [
@@ -19,6 +20,6 @@ final class DumpConsoleEventsListener implements EventSubscriberInterface
 
     public function dump(ConsoleEvent $event): void
     {
-//        var_dump('Console event fired: ' . $event::class);
+        var_dump('Console event fired: ' . $event::class);
     }
 }

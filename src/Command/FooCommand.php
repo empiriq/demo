@@ -11,8 +11,9 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'foo',
     description: 'Foo Description',
 )]
-class FooCommand extends Command
+final class FooCommand extends Command
 {
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('yeee!');

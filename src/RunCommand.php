@@ -29,6 +29,7 @@ final class RunCommand extends Command
         parent::__construct('run');
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this
@@ -41,6 +42,7 @@ final class RunCommand extends Command
             );
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $runners = [];

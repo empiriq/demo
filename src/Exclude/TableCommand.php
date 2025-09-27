@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class TableCommand extends Command
+final class TableCommand extends Command
 {
     public function __construct(
         private BalanceRepository $repository
@@ -16,6 +16,7 @@ class TableCommand extends Command
         parent::__construct('table');
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this
@@ -27,6 +28,7 @@ class TableCommand extends Command
             ->setHelp('asd');
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         var_dump($this->repository->findAll());

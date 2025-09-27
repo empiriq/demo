@@ -6,7 +6,7 @@ use React\Socket\ConnectionInterface;
 use SplObjectStorage;
 use Symfony\Component\Console\Input\StringInput;
 
-readonly class ClientConnection
+final readonly class ClientConnection
 {
     /**
      * @param ConnectionInterface $connection
@@ -40,7 +40,7 @@ readonly class ClientConnection
         $input = new StringInput($commandLine);
         $stream = new StreamOutput($this->connection);
         try {
-            $exitCode = $this->terminalApplication->run($input, $stream);
+            $this->terminalApplication->run($input, $stream);
         } catch (\Throwable $e) {
             $this->connection->write("Error: " . $e->getMessage() . "\n");
         }
@@ -69,11 +69,11 @@ readonly class ClientConnection
 
     /**
      * Ошибка соединения
-     * @param $data
+     * @param \Throwable $data
      * @return void
      */
-    public function __error($data): void
+    public function __error(\Throwable $data): void
     {
-        $this->connection->write('error');
+        $this->connection->write('error: ' . $data->getMessage());
     }
 }

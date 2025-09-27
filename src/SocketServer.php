@@ -6,24 +6,28 @@ use Empiriq\Contracts\RunnableInterface;
 use React\Promise\Deferred;
 use React\Promise\PromiseInterface;
 use React\Socket\ConnectionInterface;
+use React\Socket\SocketServer as ReactSocketServer;
+use SplObjectStorage;
 use Symfony\Component\Console\Command\Command;
+use Throwable;
 
-class SocketServer implements RunnableInterface
+final class SocketServer implements RunnableInterface
 {
-    private \SplObjectStorage $clientConnection;
-    private Deferred $deferred;
-    private \React\Socket\SocketServer $socketServer;
+    private ?SplObjectStorage $clientConnection = null;
+    private ?Deferred $deferred = null;
+    private ?ReactSocketServer $socketServer = null;
 
     public function __construct(
         private readonly TerminalApplication $terminalApplication,
     ) {
     }
 
+    #[\Override]
     public function run(): PromiseInterface
     {
-        $this->clientConnection = new \SplObjectStorage();
+        $this->clientConnection = new SplObjectStorage();
         $this->deferred = new Deferred();
-        $this->socketServer = new \React\Socket\SocketServer('0.0.0.0:2009', []);
+        $this->socketServer = new ReactSocketServer('0.0.0.0:2009', []);
         $this->socketServer->on('connection', [$this, '__connection']);
         $this->socketServer->on('close', [$this, '__close']);
         $this->socketServer->on('error', [$this, '__error']);
@@ -45,21 +49,20 @@ class SocketServer implements RunnableInterface
 
     /**
      * Когда сервер закрыт
-     * @param $data
      * @return void
      */
-    public function __close($data): void
+    public function __close(): void
     {
         $this->deferred->resolve(Command::SUCCESS);
     }
 
     /**
      * Когда произошла ошибка
-     * @param \Throwable $e
+     * @param Throwable $e
      * @return void
      */
-    public function __error(\Throwable $e): void
+    public function __error(Throwable $e): void
     {
-        $this->deferred->resolve(Command::FAILURE);
+        $this->deferred->reject($e);
     }
 }

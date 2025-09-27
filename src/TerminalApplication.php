@@ -10,7 +10,7 @@ use Symfony\Component\Console\Command\ListCommand;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-class TerminalApplication extends Application
+final class TerminalApplication extends Application
 {
     public function __construct(
         KernelInterface $kernel,
@@ -19,6 +19,7 @@ class TerminalApplication extends Application
         $this->setAutoExit(false);
     }
 
+    #[\Override]
     protected function getDefaultCommands(): array
     {
         return [
@@ -28,6 +29,7 @@ class TerminalApplication extends Application
         ];
     }
 
+    #[\Override]
     protected function getDefaultInputDefinition(): InputDefinition
     {
         $definition = parent::getDefaultInputDefinition();
