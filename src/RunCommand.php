@@ -50,7 +50,14 @@ final class RunCommand extends Command
             $this->logger->info(sprintf('Running: %s', get_class($runner)));
             $runners[] = $runner->run();
         }
+        try {
+            await(all($runners));
 
-        return max(await(all($runners)));
+            return Command::SUCCESS;
+        } catch (\Throwable $e) {
+            $this->logger->error(sprintf('Runner execution failed: %s (%s)', $e->getMessage(), $e::class));
+
+            return Command::FAILURE;
+        }
     }
 }

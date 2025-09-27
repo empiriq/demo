@@ -18,6 +18,6 @@ final class FooCommand extends Command
     {
         $output->writeln('yeee!');
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

@@ -3,18 +3,14 @@
 namespace App;
 
 use React\Socket\ConnectionInterface;
-use Symfony\Component\Console\Output\StreamOutput as SymfonyStreamOutput;
+use Symfony\Component\Console\Output\Output;
 
-final class StreamOutput extends SymfonyStreamOutput
+final class StreamOutput extends Output
 {
     public function __construct(
         private readonly ConnectionInterface $connection
     ) {
-        $stream = fopen('php://temp', 'r+');
-        if ($stream === false) {
-            throw new \RuntimeException('Failed to open php://temp');
-        }
-        parent::__construct($stream);
+        parent::__construct();
     }
 
     #[\Override]
